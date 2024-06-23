@@ -9,7 +9,7 @@
         body {
             background: linear-gradient(135deg, #1e1e1e, #000000, #000000, #1e1e1e);
             background-size: 400% 400%;
-            background-position: 0 0;
+            background-position: center;
             font-family: 'Lexend', sans-serif;
             margin: 0;
             padding: 0;
@@ -21,71 +21,66 @@
             height: 100vh;
             color: #fff;
             text-align: center;
+            overflow-x: hidden;
         }
-
+    
         @keyframes rollBackground {
             from {
-                background-position: 90% 90%;
+                background-position: top right;
             }
             to {
-                background-position: 0 0;
+                background-position: center;
             }
         }
-
-        header, nav, button {
+    
+        header {
+            padding: 20px;
+            font-size: 2.8em;
+            font-weight: 700;
             opacity: 0;
-            animation: fadeInSlideDown 1s ease forwards;
+            transform: translateY(-100px);
+            animation: flyInTop 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 0.5s;
         }
-
-        @keyframes fadeInSlideDown {
+    
+        @keyframes flyInTop {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateY(-100px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        header {
-            padding: 20px;
-            font-size: 2.5em;
-            font-weight: 700;
-        }
-
-        nav {
-            margin-top: 10px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-        }
-
-        .description {
+    
+        .content {
             margin: 20px 0;
             font-size: 1.2em;
-            max-width: 600px;
+            max-width: 700px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateX(-100px);
+            animation: flyInLeft 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 0.8s;
         }
-
+    
+        @keyframes flyInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    
+        .invite-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
         .invite-button {
             display: inline-block;
             background-color: #9eacff;
@@ -96,11 +91,182 @@
             font-size: 1.2em;
             font-weight: 700;
             border-radius: 10px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(158, 172, 255, 0.3);
+            opacity: 0;
+            transform: translateY(100px);
+            animation: flyInBottom 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 1.1s;
+            cursor: pointer;
         }
-
-        .invite-button:hover {
-            background-color: #ddb8ff;
+    
+        .invite-button:hover, .invite-button:focus {
+            background-color: #7b95ff; /* Darker shade for hover */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(123, 149, 255, 0.5);
+        }
+    
+        .invite-button:active {
+            background-color: #7b95ff;
+            transform: translateY(10px); /* Moves down a bit */
+            box-shadow: 0 10px 30px rgba(123, 149, 255, 0.7); /* Stronger glow */
+        }
+    
+        @keyframes flyInBottom {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    
+        .progress-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    
+        .progress-bar {
+            height: 10px;
+            border-radius: 10px;
+            background-color: #9eacff;
+            width: 0;
+            transition: width 0.1s;
+        }
+    
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateX(100px);
+            animation: flyInRight 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 1.4s;
+        }
+    
+        @keyframes flyInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    
+        .card {
+            width: 300px;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border: 1px solid #333;
+            border-radius: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+    
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.5);
+        }
+    
+        .card-title {
+            font-size: 1.5em;
+            margin: 0 0 10px;
+        }
+    
+        .card-description {
+            font-size: 1em;
+            color: #ddd;
+            margin: 0;
+        }
+    
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    
+        .modal-content {
+            background-color: #222;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: left;
+            color: #ddd;
+            font-size: 1.1em;
+            animation: slideDown 0.3s ease-in-out;
+        }
+    
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #ddd;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    
+        @media (max-width: 768px) {
+            .content {
+                font-size: 1em;
+                padding: 0 20px;
+            }
+    
+            .card {
+                width: 90%;
+            }
+    
+            .invite-button {
+                width: 80%;
+            }
+    
+            .modal-content {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -108,16 +274,130 @@
     <header>
         Install DiscAI
     </header>
-    <nav>
-        <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#docs">Docs</a></li>
-            <li><a href="#support">Support</a></li>
-        </ul>
-    </nav>
-    <div class="description">
-        DiscAI is your smart Discord bot, enhancing your server with AI-driven image generation and insightful text creation. Whether you're looking for creativity, quick answers, or fun interactions, DiscAI has you covered!
+    <div class="content">
+        DiscAI is your ultimate Discord bot, bringing advanced AI capabilities right to your server. Generate stunning images, provide insightful text responses, and enhance your community's interaction with smart, creative solutions. Easy to use and incredibly powerful, DiscAI is the perfect addition to any Discord server!
     </div>
-    <a href="YOUR_INVITE_LINK" class="invite-button">Invite DiscAI</a>
+    <div class="invite-container">
+        <div class="invite-button" aria-label="Invite DiscAI">Invite DiscAI</div>
+        <div class="progress-container"><div class="progress-bar"></div></div>
+    </div>
+    <div class="card-container">
+        <div class="card" id="card1">
+            <div class="card-title">📷 AI Image Generation</div>
+            <div class="card-description">🖼️ Transform your imagination into reality! Create stunning images directly in your Discord server with state-of-the-art AI technology.</div>
+        </div>
+        <div class="card" id="card2">
+            <div class="card-title">📝 Insightful Text</div>
+            <div class="card-description">💬 Elevate your conversations! Generate accurate and creative text responses effortlessly with powerful AI.</div>
+        </div>
+        <div class="card" id="card3">
+            <div class="card-title">🎉 Community Engagement</div>
+            <div class="card-description">👥 Boost your server's interaction! Enjoy fun and engaging features that keep your community active and entertained.</div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close1">&times;</span>
+            <h2>📷 AI Image Generation</h2>
+            <p>DiscAI can create stunning and unique images using state-of-the-art AI models. Simply use commands to describe the image you want, and watch as DiscAI brings your vision to life, all within your Discord server.</p>
+            <p>With a variety of models to choose from, each offering unique styles and capabilities, you can generate anything from realistic photos to artistic illustrations. Whether you're hosting an event, planning a design project, or just having fun with your server members, DiscAI's image generation feature is here to assist.</p>
+            <p>Commands are simple and intuitive. Just tell DiscAI what you want to see, and it will use its advanced algorithms to create a visual masterpiece tailor-made for you. Say goodbye to stock images and hello to personalized art!</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close2">&times;</span>
+            <h2>📝 Insightful Text</h2>
+            <p>DiscAI provides quick and accurate text generation, perfect for answering questions, generating creative content, or even drafting messages. Use it to enhance conversations and provide valuable information effortlessly.</p>
+            <p>Whether you need help coming up with ideas, writing scripts, or solving complex problems, DiscAI's text generation feature can help. By leveraging the power of advanced language models, it can generate coherent and contextually relevant responses that feel natural and engaging.</p>
+            <p>From answering simple queries to participating in in-depth discussions, DiscAI’s text capabilities are designed to support a wide range of communication needs. Let DiscAI be your go-to assistant for all text-related tasks in your server.</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close3">&times;</span>
+            <h2>🎉 Community Engagement</h2>
+            <p>With interactive commands and fun features, DiscAI helps you boost engagement and interaction within your community. From trivia games to AI-powered responses, keep your members entertained and active.</p>
+            <p>DiscAI is more than just a bot; it's a catalyst for community building. Organize trivia nights, create interactive polls, or kick off discussions with ease. DiscAI’s array of tools and features are designed to foster a vibrant and active server environment.</p>
+            <p>By promoting interaction and providing intelligent responses, DiscAI makes it easier to keep your community engaged. Whether you're managing a small group or a large server, DiscAI can help you create a dynamic and inclusive atmosphere where everyone feels welcome.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Modal functionality
+            const cards = document.querySelectorAll('.card');
+            const modals = document.querySelectorAll('.modal');
+            const closeButtons = document.querySelectorAll('.close');
+
+            cards.forEach((card, index) => {
+                card.addEventListener('click', () => {
+                    modals[index].style.display = 'block';
+                });
+            });
+
+            closeButtons.forEach((closeBtn, index) => {
+                closeBtn.addEventListener('click', () => {
+                    modals[index].style.display = 'none';
+                });
+            });
+
+            window.addEventListener('click', (event) => {
+                modals.forEach((modal) => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    modals.forEach((modal) => {
+                        modal.style.display = 'none';
+                    });
+                }
+            });
+
+            // Invite button functionality
+            const inviteButton = document.querySelector('.invite-button');
+            const progressBar = document.querySelector('.progress-bar');
+            const progressContainer = document.querySelector('.progress-container');
+            let progress = 0;
+            let holdInterval;
+
+            inviteButton.addEventListener('mousedown', () => {
+                inviteButton.classList.add('shake');
+                progressContainer.style.opacity = 1;
+                holdInterval = setInterval(() => {
+                    progress += 1;
+                    progressBar.style.width = `${progress}%`;
+                    if (progress >= 100) {
+                        clearInterval(holdInterval);
+                        window.location.href = 'https://discord.com/oauth2/authorize?client_id=1251750706675847249'; // Change to your actual invite link
+                    }
+                }, 30); // Adjust speed as necessary
+            });
+
+            inviteButton.addEventListener('mouseup', () => {
+                inviteButton.classList.remove('shake');
+                clearInterval(holdInterval);
+                progress = 0;
+                progressBar.style.width = '0';
+                progressContainer.style.opacity = 0;
+            });
+
+            inviteButton.addEventListener('mouseleave', () => {
+                inviteButton.classList.remove('shake');
+                clearInterval(holdInterval);
+                progress = 0;
+                progressBar.style.width = '0';
+                progressContainer.style.opacity = 0;
+            });
+        });
+    </script>
 </body>
 </html>
