@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DiscAI - Invite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #1e1e1e, #000000, #000000, #1e1e1e);
@@ -23,7 +22,7 @@
             text-align: center;
             overflow-x: hidden;
         }
-    
+
         @keyframes rollBackground {
             from {
                 background-position: top right;
@@ -32,7 +31,21 @@
                 background-position: center;
             }
         }
-    
+
+        .mobile-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            z-index: 1000;
+        }
+
         header {
             padding: 20px;
             font-size: 2.8em;
@@ -41,7 +54,7 @@
             transform: translateY(-100px);
             animation: flyInTop 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 0.5s;
         }
-    
+
         @keyframes flyInTop {
             from {
                 opacity: 0;
@@ -52,7 +65,7 @@
                 transform: translateY(0);
             }
         }
-    
+
         .content {
             margin: 20px 0;
             font-size: 1.2em;
@@ -62,7 +75,7 @@
             transform: translateX(-100px);
             animation: flyInLeft 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 0.8s;
         }
-    
+
         @keyframes flyInLeft {
             from {
                 opacity: 0;
@@ -73,14 +86,14 @@
                 transform: translateX(0);
             }
         }
-    
+
         .invite-container {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-    
+
         .invite-button {
             display: inline-block;
             background-color: #9eacff;
@@ -99,19 +112,19 @@
             animation: flyInBottom 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 1.1s;
             cursor: pointer;
         }
-    
+
         .invite-button:hover, .invite-button:focus {
             background-color: #7b95ff; /* Darker shade for hover */
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(123, 149, 255, 0.5);
         }
-    
+
         .invite-button:active {
             background-color: #7b95ff;
             transform: translateY(10px); /* Moves down a bit */
             box-shadow: 0 10px 30px rgba(123, 149, 255, 0.7); /* Stronger glow */
         }
-    
+
         @keyframes flyInBottom {
             from {
                 opacity: 0;
@@ -122,7 +135,7 @@
                 transform: translateY(0);
             }
         }
-    
+
         .progress-container {
             width: 100%;
             background-color: #ddd;
@@ -131,7 +144,7 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-    
+
         .progress-bar {
             height: 10px;
             border-radius: 10px;
@@ -139,7 +152,7 @@
             width: 0;
             transition: width 0.1s;
         }
-    
+
         .card-container {
             display: flex;
             flex-wrap: wrap;
@@ -150,7 +163,7 @@
             transform: translateX(100px);
             animation: flyInRight 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 1.4s;
         }
-    
+
         @keyframes flyInRight {
             from {
                 opacity: 0;
@@ -161,7 +174,7 @@
                 transform: translateX(0);
             }
         }
-    
+
         .card {
             width: 300px;
             height: 200px;
@@ -181,23 +194,23 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
         }
-    
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 20px rgba(255, 255, 255, 0.5);
         }
-    
+
         .card-title {
             font-size: 1.5em;
             margin: 0 0 10px;
         }
-    
+
         .card-description {
             font-size: 1em;
             color: #ddd;
             margin: 0;
         }
-    
+
         /* Modal styles */
         .modal {
             display: none; /* Hidden by default */
@@ -211,12 +224,12 @@
             background-color: rgba(0, 0, 0, 0.8);
             animation: fadeIn 0.5s ease-in-out;
         }
-    
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-    
+
         .modal-content {
             background-color: #222;
             margin: 5% auto;
@@ -230,40 +243,40 @@
             font-size: 1.1em;
             animation: slideDown 0.3s ease-in-out;
         }
-    
+
         @keyframes slideDown {
             from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-    
+
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-    
+
         .close:hover,
         .close:focus {
             color: #ddd;
             text-decoration: none;
             cursor: pointer;
         }
-    
+
         @media (max-width: 768px) {
             .content {
                 font-size: 1em;
                 padding: 0 20px;
             }
-    
+
             .card {
                 width: 90%;
             }
-    
+
             .invite-button {
                 width: 80%;
             }
-    
+
             .modal-content {
                 font-size: 1em;
             }
@@ -271,9 +284,14 @@
     </style>
 </head>
 <body>
+    <div class="mobile-message">
+        <p>You can only view this website from your PC or Laptop.</p>
+    </div>
+
     <header>
         Invite DiscAI
     </header>
+
     <div class="content">
         DiscAI is your ultimate Discord bot, bringing advanced AI capabilities right to your server. Generate stunning images, provide insightful text responses, and enhance your community's interaction with smart, creative solutions. Easy to use and incredibly powerful, DiscAI is the perfect addition to any Discord server!
     </div>
@@ -281,6 +299,7 @@
         <div class="invite-button" aria-label="Invite DiscAI">Invite DiscAI</div>
         <div class="progress-container"><div class="progress-bar"></div></div>
     </div>
+    
     <div class="card-container">
         <div class="card" id="card1">
             <div class="card-title">📷 AI Image Generation</div>
@@ -295,7 +314,7 @@
             <div class="card-description">👥 Boost your server's interaction! Enjoy fun and engaging features that keep your community active and entertained.</div>
         </div>
     </div>
-
+    
     <!-- Modals -->
     <div id="modal1" class="modal">
         <div class="modal-content">
@@ -306,7 +325,7 @@
             <p>Commands are simple and intuitive. Just tell DiscAI what you want to see, and it will use its advanced algorithms to create a visual masterpiece tailor-made for you. Say goodbye to stock images and hello to personalized art!</p>
         </div>
     </div>
-
+    
     <div id="modal2" class="modal">
         <div class="modal-content">
             <span class="close" id="close2">&times;</span>
@@ -316,7 +335,7 @@
             <p>From answering simple queries to participating in in-depth discussions, DiscAI’s text capabilities are designed to support a wide range of communication needs. Let DiscAI be your go-to assistant for all text-related tasks in your server.</p>
         </div>
     </div>
-
+    
     <div id="modal3" class="modal">
         <div class="modal-content">
             <span class="close" id="close3">&times;</span>
@@ -326,26 +345,34 @@
             <p>By promoting interaction and providing intelligent responses, DiscAI makes it easier to keep your community engaged. Whether you're managing a small group or a large server, DiscAI can help you create a dynamic and inclusive atmosphere where everyone feels welcome.</p>
         </div>
     </div>
-
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const mobileMessage = document.querySelector('.mobile-message');
+    
+            if (isMobile) {
+                mobileMessage.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Disable scrolling on mobile
+            }
+    
             // Modal functionality
             const cards = document.querySelectorAll('.card');
             const modals = document.querySelectorAll('.modal');
             const closeButtons = document.querySelectorAll('.close');
-
+    
             cards.forEach((card, index) => {
                 card.addEventListener('click', () => {
                     modals[index].style.display = 'block';
                 });
             });
-
+    
             closeButtons.forEach((closeBtn, index) => {
                 closeBtn.addEventListener('click', () => {
                     modals[index].style.display = 'none';
                 });
             });
-
+    
             window.addEventListener('click', (event) => {
                 modals.forEach((modal) => {
                     if (event.target === modal) {
@@ -353,7 +380,7 @@
                     }
                 });
             });
-
+    
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
                     modals.forEach((modal) => {
@@ -361,14 +388,14 @@
                     });
                 }
             });
-
+    
             // Invite button functionality
             const inviteButton = document.querySelector('.invite-button');
             const progressBar = document.querySelector('.progress-bar');
             const progressContainer = document.querySelector('.progress-container');
             let progress = 0;
             let holdInterval;
-
+    
             inviteButton.addEventListener('mousedown', () => {
                 inviteButton.classList.add('shake');
                 progressContainer.style.opacity = 1;
@@ -381,7 +408,7 @@
                     }
                 }, 15); // Adjust speed as necessary
             });
-
+    
             inviteButton.addEventListener('mouseup', () => {
                 inviteButton.classList.remove('shake');
                 clearInterval(holdInterval);
@@ -389,7 +416,7 @@
                 progressBar.style.width = '0';
                 progressContainer.style.opacity = 0;
             });
-
+    
             inviteButton.addEventListener('mouseleave', () => {
                 inviteButton.classList.remove('shake');
                 clearInterval(holdInterval);
